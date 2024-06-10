@@ -1,0 +1,150 @@
+//Defining Sensor Pins (input)
+const int sens1 = 1;
+const int sens2 = 2;
+const int sens3 = 3;
+
+//Motor Driver Required (for rMotor and lMotor)
+//Defining pins for rMotor
+const int rMotorPin1 = ; //input(pin2)
+const int rMotorPin2 = ; //input(pin7)
+const int speedPin1 = ; //En1 (analog write)
+
+//Defining pins for lMotor
+const int lMotorPin1 = 6; //input(opp side)
+const int lMotorPin2 = 7; //input(opp side)
+const int speedPin2 = ;   //En2 (analog write)
+
+int mSpeed = 150; //setting speed of motor
+
+void setup() 
+  {
+    Serial.begin(96000);
+
+    //Declare sensor pins as input
+    pinMode(sens1, INPUT);
+    pinMode(sens2, INPUT);
+    pinMode(sens3, INPUT);
+    //Declare right motor pins
+    pinMode(speedPin1, OUTPUT);
+    pinMode(rMotorPin1, OUTPUT);
+    pinMode(rMotorPin2, OUTPUT);
+
+    //Declare left motor pins
+    pinMode(speedPin2, OUTPUT);
+    pinMode(lMotorPin1, OUTPUT);
+    pinMode(lMotorPin2, OUTPUT);
+
+    analogWrite(speedPin1, mSpeed);
+    analogWrite(speedPin2, mSpeed);
+  }
+
+
+//Define custom functions:
+
+void turnRight()
+  {
+    //stop right motor
+    digitalWrite(rMotorPin1, LOW);
+    digitalWrite(rMotorPin2, LOW);
+
+    //turn left motor forward in CW
+    digitalWrite(lMotorPin1, HIGH);
+    digitalWrite(lMotorPin2, LOW);
+
+  }
+
+void turnLeft()
+  {
+    //turn right motor forward in CW
+    digitalWrite(rMotorPin1, HIGH);
+    digitalWrite(rMotorPin2, LOW);
+
+    //stop left motor 
+    digitalWrite(lMotorPin1, HIGH);
+    digitalWrite(lMotorPin2, LOW);
+
+  }
+
+void rotateCW()
+  {
+    //turn right motor in ACW
+    digitalWrite(rMotorPin1, LOW);
+    digitalWrite(rMotorPin2, HIGH);
+
+    //turn left motor in CW
+    digitalWrite(lMotorPin1, HIGH);
+    digitalWrite(lMotorPin2, LOW);
+
+  }
+
+
+void moveForward()
+  {
+    //turn right motor CW
+    digitalWrite(rMotorPin1, HIGH);
+    digitalWrite(rMotorPin2, LOW);
+
+    //turn left motor CW
+    digitalWrite(lMotorPin1, HIGH);
+    digitalWrite(lMotorPin2, LOW);
+
+  }
+
+
+void loop() 
+  {
+
+    sensor1Val = digitalRead(sens1);
+    sensor2Val = digitalRead(sens2);
+    sensor3Val = digitalRead(sens3);
+
+
+    //000 case
+    if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      rotateCW();
+    }
+
+    //001 case
+    else if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      turnRight();
+    }
+
+    //010 case
+    else if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      moveForward();
+    }
+
+    //011 case
+    else if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      turnRight();
+    }
+
+    //100 case
+    else if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      turnLeft();
+    }
+
+    //101 case
+    else if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      rotateCW();
+    }
+
+    //110 case
+    else if (sens1 == 0 && sens2 == 0 && sens3 == 0)
+    {
+      turnLeft();
+    }
+
+    //111 case
+    else 
+    {
+      rotateCW();
+    }
+   
+  }
