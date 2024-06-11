@@ -1,0 +1,112 @@
+// Defining Sensor Pins (input)
+  const int sens1 = 1;
+  const int sens2 = 2;
+  const int sens3 = 3;
+
+// Motor Driver Required (for right motor => rMotor and left motor => lMotor)
+// Defining pins for right Motor
+  const int rMotorPin1 = 13; //input(pin2)
+  const int rMotorPin2 = 12; //input(pin7)
+  const int speedPin1  = 11; //En1 (analog write)
+
+// Defining pins for left motor
+  const int lMotorPin1 = 6; //input(opp side)
+  const int lMotorPin2 = 7; //input(opp side)
+  const int speedPin2 =  8; //En2 (analog write)
+
+  int mSpeed = 150; //setting speed of motor
+
+
+// define function for  
+void directionControl(bool rMotorP1Val, bool rMotorP2Val, bool lMotorP1Val, bool lMotorP2Val)
+  {
+
+      //turn right motor 
+      digitalWrite(rMotorPin1, rMotorP1Val);
+      digitalWrite(rMotorPin2, rMotorP2Val);
+  
+      //turn left motor 
+      digitalWrite(lMotorPin1, lMotorP1Val);
+      digitalWrite(lMotorPin2, lMotorP2Val);
+
+  }
+
+
+void setup() 
+  {
+      Serial.begin(96000);
+
+      // Declare sensor pins as input
+      pinMode(sens1, INPUT);
+      pinMode(sens2, INPUT);
+      pinMode(sens3, INPUT);
+  
+      // Declare right motor pins
+      pinMode(speedPin1, OUTPUT);
+      pinMode(rMotorPin1, OUTPUT);
+      pinMode(rMotorPin2, OUTPUT);
+  
+      // Declare left motor pins
+      pinMode(speedPin2, OUTPUT);
+      pinMode(lMotorPin1, OUTPUT);
+      pinMode(lMotorPin2, OUTPUT);
+  
+      analogWrite(speedPin1, mSpeed);
+      analogWrite(speedPin2, mSpeed);
+
+  }
+
+
+
+void loop() 
+  {
+      // Gather boolean data from IR sensors
+      bool sensor1Val = digitalRead(sens1);
+      bool sensor2Val = digitalRead(sens2);
+      bool sensor3Val = digitalRead(sens3);
+
+      // Convert binary to decimal 
+      int sensorVal = (4*sensor1Val) + (2*sensor2Val) + (sensor3Val);
+
+    switch(sensorVal)
+    {
+
+         case 1: //000 case
+          directionControl(0,1,1,0); // rotate CW
+          break;
+  
+        case 2: //001 case
+          directionControl(0,0,1,0); //turn right
+          break;
+        
+        case 3: //010 case
+          directionControl(1,0,1,0); //move forward
+          break;
+  
+        case 4:  //011 case
+          directionControl(0,0,1,0); //turn right
+          break;
+  
+        case 5: //100 case
+          directionControl(1,0,0,0); //turn left
+          break;
+  
+        case 6: //101 case
+          directionControl(0,1,1,0); // rotate CW
+          break;
+        
+        case 7: //110 case
+          directionControl(1,0,0,0); //turn left
+          break;
+  
+        case 8: //111 case
+          directionControl(0,1,1,0); // rotate CW
+          break;
+  
+        default: //010 case
+          directionControl(1,0,1,0); //move forward
+          break;
+
+    }
+   
+  }
