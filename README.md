@@ -1,4 +1,5 @@
 This is the code for a simple line following bot designed with the following features:
+
     ⦿ Differential drive 
     ⦿ Dual H-Bridge
     ⦿ Three IR sensors 
