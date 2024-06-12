@@ -12,5 +12,6 @@ Each IR sensor returns a boolean value, 1 if the line is detected and 0 if not. 
 
 As the boolean sequential combination of sensor output is equivalent to a binary number in a loose sense, I converted the binary number to the corresponding decimal number to run it smoothly through switch cases.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 In this repository, I have documented the evolution of my code, and will keep adding to it as I learn new things
 while I build the final line following bot using hardware components.
